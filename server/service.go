@@ -1,15 +1,16 @@
 package main
 
 import (
+	"crypto/md5"
 	"fmt"
 	"html/template"
+	"io"
 	"log"
 	"net/http"
+	"os"
+	"strconv"
 	"strings"
 	"time"
-	"io"
-	"crypto/md5"
-	"strconv"
 )
 
 func sayHelloName(w http.ResponseWriter, r *http.Request) {
@@ -33,7 +34,7 @@ func login(w http.ResponseWriter, r *http.Request) {
 		h := md5.New()
 		io.WriteString(h, strconv.FormatInt(crutime, 10))
 		token := fmt.Sprintf("%x", h.Sum(nil))
-		
+
 		t, _ := template.ParseFiles("login.gtpl")
 		t.Execute(w, token)
 	} else {
@@ -51,7 +52,38 @@ func login(w http.ResponseWriter, r *http.Request) {
 	}
 }
 
+func upload(w http.ResponseWriter, r *http.Request) {
+	fmt.Println("method:", r.Method)
+	if r.Method == "GET" {
+		crutime := time.Now().Unix()
+		h := md5.New()
+		io.WriteString(h, strconv.FormatInt(crutime, 10))
+		token := fmt.Sprintf("%x", h.Sum(nil))
+
+		t, _ := template.ParseFiles("upload.html")
+		t.Execute(w, token)
+	} else {
+		r.ParseMultipartForm(32 << 20)
+		file, handler, err := r.FormFile("uploadfile")
+		if err != nil {
+			fmt.Println(err)
+			return
+		}
+		defer file.Close()
+		fmt.Fprint(w, "%v", handler.Header)
+		f, err := os.OpenFile("./upFile"+handler.Filename, os.O_WRONLY|os.O_CREATE, 0666)
+		if err != nil {
+			fmt.Println(err)
+			return
+		}
+		defer f.Close()
+		io.Copy(f, file)
+	}
+
+}
+
 func main() {
+	http.HandleFunc("/upload", upload)
 	http.HandleFunc("/", sayHelloName)
 	http.HandleFunc("/login", login)
 	err := http.ListenAndServe(":9090", nil)
