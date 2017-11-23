@@ -52,6 +52,31 @@ func login(w http.ResponseWriter, r *http.Request) {
 	}
 }
 
+func loveYou(w http.ResponseWriter, r *http.Request) {
+	fmt.Println("method", r.Method)
+	if r.Method == "GET" {
+		//		crutime := time.Now().Unix()
+		//		h := md5.New()
+		//		io.WriteString(h, strconv.FormatInt(crutime, 10))
+		//		token := fmt.Sprintf("%x", h.Sum(nil))
+
+		t, _ := template.ParseFiles("html/index.html")
+		t.Execute(w, "love")
+	} else {
+		//		fmt.Println("username:", r.FormValue("username"))
+		//		fmt.Println("username:", r.FormValue("password"))
+		//		r.ParseForm()
+		//		token := r.Form.Get("token")
+		//		if token != "" {
+		//			fmt.Printf("token is: ", token)
+		//		} else {
+		//			fmt.Printf("no token")
+		//		}
+		//		fmt.Println("username:", r.Form["username"][0])
+		//		fmt.Println("password:", r.Form["password"][0])
+	}
+}
+
 func upload(w http.ResponseWriter, r *http.Request) {
 	fmt.Println("method:", r.Method)
 	if r.Method == "GET" {
@@ -86,6 +111,7 @@ func main() {
 	http.HandleFunc("/upload", upload)
 	http.HandleFunc("/", sayHelloName)
 	http.HandleFunc("/login", login)
+	http.HandleFunc("/loveYou", loveYou)
 	err := http.ListenAndServe(":9090", nil)
 	if err != nil {
 		log.Fatal("ListenAndserver: ", err)
