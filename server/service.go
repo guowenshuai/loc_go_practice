@@ -62,6 +62,7 @@ func loveYou(w http.ResponseWriter, r *http.Request) {
 
 		t, _ := template.ParseFiles("html/index.html")
 		t.Execute(w, "love")
+
 	} else {
 		//		fmt.Println("username:", r.FormValue("username"))
 		//		fmt.Println("username:", r.FormValue("password"))
