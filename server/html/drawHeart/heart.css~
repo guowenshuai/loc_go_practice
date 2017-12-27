@@ -1,0 +1,137 @@
+/* <style type="text/css"> */
+    header {
+		position: fixed;
+		top: 1em;
+		left: 3em;
+		
+	}
+	
+	body {
+		background-position: center;
+		background-size: auto;
+		background-image: url(ring.jpg);
+	}
+	
+	
+	html,body {
+		margin:0;
+		padding:0;
+		cursor: 
+		cursor: url('http://webme.bokee.com/inc/mouse001.ani');
+		
+	}
+/* ul,li{text-indent:0;text-decoration:none;margin:0;padding:0} */
+/* img{border:0} */
+/* body{background-color:#000;color:#999;font:100%/18px helvetica, arial, sans-serif} */
+	canvas {
+		display:block;
+		left:0;
+		position:absolute;
+		top:0;
+		z-index:20;
+		
+	}
+
+	p{
+		/* color: #AEEEEE; */
+		/* font-size: 20px; */
+		/* font-style: oblique; */
+		/* padding: 10px; */
+		/* font-family: "Times New Roman", Times, serif; */
+		/* text-shadow: 2px 4px 0.6em grey; */
+		/* border: 5px solid #00868B;  */
+		/* font-family: "Times New Roman", Times, serif; */
+		text-align: center;
+		text-transform: uppercase;
+		font-size: 2em;
+		letter-spacing: 0.1em;
+		color: black;
+		animation: rotate 5s ease-in-out alternate infinite;
+	}
+	
+	*{
+        margin: 0;
+        padding: 0;
+		position: center;
+		/* background-color: #F8F8FF; */
+		
+    }
+	
+    ul{
+        position: relative;
+        width: 800px;
+        height: 800px;
+        margin: 200px auto;
+        transform-style: preserve-3d;
+        animation: run 6s linear infinite;
+        animation-fill-mode: none;
+    }
+    ul li {
+        position: absolute;
+        list-style: none;
+        left: 0;
+        top: 0;
+        width: 400px;
+        height: 400px;
+        opacity: 0.6; 
+    }
+    ul li:first-child {
+        transform: translateY(200px) rotateX(90deg);
+        background: red;
+    }
+
+    ul li:nth-child(2) {
+        transform: translateX(200px) rotateY(90deg);
+        background: blue;
+    }
+
+    ul li:nth-child(3) {
+        transform: translateY(-200px) rotateX(90deg);
+        background: green;
+    }
+
+    ul li:nth-child(4) {
+        transform: translateX(-200px) rotateY(90deg);
+        background: yellow;
+    }
+
+    ul li:nth-child(5) {
+        transform: translateZ(-200px);
+        background: orange;
+    }
+
+    ul li:last-child {
+        transform: translateZ(200px);
+        background: pink;
+    }
+
+    @keyframes run {
+        0% {
+            transform: rotateX(0deg) rotateY(0deg);
+        }
+        100% {
+            transform: rotateX(360deg) rotateY(360deg);
+        }
+    }
+	
+	@keyframes rotate {
+	  from {
+		transform: rotateY(-5deg);
+		text-shadow:  1px -1px #CCC,
+					  2px -1px #BBB,
+					  3px -2px #AAA,
+					  4px -2px #999,
+					  5px -3px #888,
+					  6px -3px #777;
+	  }
+	  to {
+		transform: rotateY(5deg);
+		text-shadow:  -1px -1px #CCC,
+					  -2px -1px #BBB,
+					  -3px -2px #AAA,
+					  -4px -2px #999,
+					  -5px -3px #888,
+					  -6px -3px #777;
+	  }
+}
+</style>
